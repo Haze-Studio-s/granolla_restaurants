@@ -1,0 +1,8 @@
+# FiveM & Development
+.vscode/
+.idea/
+*.log
+*.tmp
+*.bak
+Thumbs.db
+.DS_Store

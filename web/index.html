@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Granolla Restaurants</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ============ PAINEL DO GERENTE (Tablet) ============ -->
+<div id="app" class="hidden">
+    <div class="tablet-container">
+        <header class="tablet-header">
+            <div class="tablet-brand">
+                <span class="tablet-title">Painel do Gerente</span>
+                <span class="tablet-sub">Granolla Restaurants</span>
+            </div>
+            <div class="tablet-tabs">
+                <button id="tab-create" class="tab-btn active">Criar / Editar</button>
+                <button id="tab-list" class="tab-btn">Minhas Receitas</button>
+            </div>
+            <button id="close-btn" class="lation-btn danger">Fechar</button>
+        </header>
+        <div class="tablet-body">
+            <div id="view-create" class="recipe-creator">
+                <h2 id="create-title" class="section-title">Criar Nova Receita</h2>
+                <form id="recipe-form">
+                    <input type="hidden" id="editRecipeId" value="">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nome do Prato</label>
+                            <input type="text" id="recipeName" class="lation-input" placeholder="Ex: X-Bacon Granola" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Item Resultante</label>
+                            <select id="resultItem" class="lation-input" required><option value="">Carregando...</option></select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Estacao de Trabalho</label>
+                            <select id="workstation" class="lation-input" required>
+                                <option value="grill">Grelha / Chapa</option>
+                                <option value="fryer">Fritadeira</option>
+                                <option value="cutting_board">Tábua de Corte</option>
+                                <option value="assembly">Bancada de Montagem</option>
+                            </select>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <label>Visibilidade</label>
+                            <label class="toggle-label">
+                                <input type="checkbox" id="isPublic">
+                                <span class="toggle-track"></span>
+                                <span>Tornar Pública</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="ingredients-section">
+                        <div class="ing-header">
+                            <h3>Ingredientes</h3>
+                            <button type="button" id="add-ingredient-btn" class="lation-btn ghost">+ Adicionar</button>
+                        </div>
+                        <div id="ingredients-list"></div>
+                    </div>
+                    <button type="submit" class="lation-btn primary full-width">Salvar Receita</button>
+                </form>
+            </div>
+            <div id="view-list" class="recipe-list hidden">
+                <h2 class="section-title">Receitas do Restaurante</h2>
+                <div id="recipes-container" class="recipes-grid"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ============ COZINHA 3D — OVERLAY TOTALMENTE TRANSPARENTE ============ -->
+<div id="cooking-world" class="hidden">
+
+    <!-- Labels flutuantes do mundo 3D sobre a bancada e chapa -->
+    <div id="world-labels"></div>
+
+    <!-- Círculo branco de foco no item interagível (Estado 1 - Hover) -->
+    <div id="hover-target-circle" class="hidden"></div>
+
+    <!-- Tooltip contextual flutuante que acompanha o cursor do mouse -->
+    <div id="cursor-tooltip" class="hidden">
+        <span id="tooltip-icon" class="tooltip-icon">👉</span>
+        <div class="tooltip-content">
+            <span id="tooltip-title" class="tooltip-title">Carne de Hambúrguer</span>
+            <span id="tooltip-action" class="tooltip-action">Clique para pegar</span>
+        </div>
+    </div>
+
+    <!-- Nano rings circulares de cozimento -->
+    <div id="cooking-rings-container"></div>
+
+    <!-- Barra minimalista de instruções na base -->
+    <div class="cooking-status-bar">
+        <span id="cooking-hint-text">Mova a espátula sobre a chapa para interagir</span>
+        <div class="hint-keys"><kbd>BACKSPACE</kbd> sair</div>
+    </div>
+</div>
+
+<!-- ============ BANCADA DE MONTAGEM FÍSICA 3D ============ -->
+<div id="assembly-world" class="hidden">
+    <!-- Painel Lateral de Camadas Empilhadas (Lation UI) -->
+    <div id="assembly-stack-panel" class="assembly-panel">
+        <div class="assembly-header">
+            <span class="assembly-title">🍔 Montagem do Lanche</span>
+            <span id="assembly-count" class="assembly-count">0 camadas</span>
+        </div>
+        <div id="assembly-layers-list" class="assembly-layers-list">
+            <div class="assembly-empty">Coloque o Pão Base no papel manteiga</div>
+        </div>
+        <button id="wrap-burger-btn" class="lation-btn primary full-width hidden">📦 Embrulhar Hambúrguer</button>
+        <div class="assembly-tips">
+            <span><kbd>Botão Dir.</kbd> desfazer topo</span>
+            <span><kbd>BACKSPACE</kbd> sair</span>
+        </div>
+    </div>
+</div>
+
+<!-- ============ ESTAÇÃO DE FRITURA FÍSICA 3D ============ -->
+<div id="fryer-world" class="hidden">
+    <div id="fryer-status-panel" class="fryer-panel">
+        <div class="fryer-header">
+            <span class="fryer-title">🍟 Fritadeira Industrial</span>
+            <span id="fryer-state-badge" class="fryer-badge">Pronta</span>
+        </div>
+        <div class="fryer-body">
+            <div id="fryer-ring-box" class="fryer-ring-box hidden">
+                <svg class="nano-ring-svg" viewBox="0 0 64 64">
+                    <circle class="nano-ring-bg" cx="32" cy="32" r="26"></circle>
+                    <circle id="fryer-progress-circle" class="nano-ring-progress" cx="32" cy="32" r="26"></circle>
+                </svg>
+                <div class="nano-ring-content">
+                    <span id="fryer-time-text" class="nano-ring-time">0:08</span>
+                    <span class="nano-ring-badge">FRITANDO</span>
+                </div>
+            </div>
+            <div class="fryer-info">
+                <div id="fryer-status-title" class="fryer-status-title">Cesto Vazio</div>
+                <div id="fryer-status-hint" class="fryer-status-hint">Clique para colocar batatas cruas</div>
+            </div>
+        </div>
+        <div class="fryer-tips">
+            <span><kbd>Clique</kbd> interagir com cesto/pá</span>
+            <span><kbd>BACKSPACE</kbd> sair</span>
+        </div>
+    </div>
+</div>
+
+<!-- ============ TÁBUA DE CORTE FÍSICA 3D ============ -->
+<div id="cutting-world" class="hidden">
+    <div id="cutting-status-panel" class="cutting-panel">
+        <div class="cutting-header">
+            <span class="cutting-title">🔪 Tábua de Fatiamento</span>
+            <span id="cutting-progress-badge" class="cutting-badge">0 / 4 fatias</span>
+        </div>
+        <div class="cutting-body">
+            <div class="cutting-progress-track">
+                <div id="cutting-progress-fill" class="cutting-progress-fill" style="width: 0%"></div>
+            </div>
+            <div class="cutting-info">
+                <div id="cutting-target-title" class="cutting-target-title">Tomate Fresco</div>
+                <div id="cutting-target-hint" class="cutting-target-hint">Pressione [ESPAÇO] ou [CLIQUE] para descer a lâmina</div>
+            </div>
+        </div>
+        <div class="cutting-tips">
+            <span><kbd>LMB / ESPAÇO</kbd> fatiar</span>
+            <span><kbd>BACKSPACE</kbd> sair</span>
+        </div>
+    </div>
+</div>
+
+<!-- ============ MÁQUINA DE BEBIDAS & REFRIGERANTE 3D ============ -->
+<div id="drinks-world" class="hidden">
+    <div id="drinks-status-panel" class="drinks-panel">
+        <div class="drinks-header">
+            <span class="drinks-title">🥤 Dispensador de Bebidas</span>
+            <span id="drinks-progress-badge" class="drinks-badge">Vazio</span>
+        </div>
+        <div class="drinks-body">
+            <div class="drinks-flavors-row" id="drinks-flavors-row">
+                <button class="flavor-btn active" data-flavor="cola">🥤 Cola</button>
+                <button class="flavor-btn" data-flavor="orange">🍊 Laranja</button>
+                <button class="flavor-btn" data-flavor="lemon">🍋 Limão</button>
+                <button class="flavor-btn" data-flavor="grape">🍇 Uva</button>
+            </div>
+            <div class="drinks-progress-track">
+                <div id="drinks-progress-fill" class="drinks-progress-fill" style="width: 0%"></div>
+            </div>
+            <div class="drinks-info">
+                <div id="drinks-target-title" class="drinks-target-title">Refrigerante de Cola</div>
+                <div id="drinks-target-hint" class="drinks-target-hint">Segure [ESPAÇO] ou [CLIQUE] para acionar a torneira</div>
+            </div>
+        </div>
+        <div class="drinks-tips">
+            <span><kbd>LMB / ESPAÇO</kbd> encher copo</span>
+            <span><kbd>BACKSPACE</kbd> sair</span>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

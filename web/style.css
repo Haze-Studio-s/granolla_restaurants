@@ -1,0 +1,620 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap');
+
+:root {
+    --surface: #1e1f24;
+    --surface-band: #18191e;
+    --surface-hover: #252630;
+    --surface-elevated: #2a2b31;
+    --surface-deep: #16171b;
+    --line: #2a2b31;
+    --line-strong: #3a3b41;
+    --content: #e4e4e7;
+    --content-secondary: #a1a1aa;
+    --content-muted: #71717a;
+    --content-heading: #ffffff;
+    --accent: #10b981;
+    --accent-soft: #34d399;
+    --accent-bright: #6afe87;
+    --accent-dim: rgba(16, 185, 129, 0.12);
+    --accent-glow: rgba(16, 185, 129, 0.28);
+    --btn-green-bg: #1b3b2d;
+    --btn-green-text: #6afe87;
+    --btn-green-border: #224d3a;
+    --btn-green-hover: #234d3b;
+    --btn-err-bg: #35202b;
+    --btn-err-text: #ff9f87;
+    --btn-err-border: #4a2b3b;
+    --error: #ef4444;
+    --warning: #f59e0b;
+    --radius: 10px;
+    --radius-sm: 7px;
+    --font-sans: 'Inter', -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+    --panel-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 1px 2px rgba(0,0,0,0.25), 0 12px 32px rgba(0,0,0,0.45);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-sans); user-select: none; -webkit-font-smoothing: antialiased; }
+html, body { width: 100%; height: 100%; background: transparent !important; overflow: hidden; color: var(--content); }
+.hidden { display: none !important; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--surface-deep); }
+::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 4px; }
+
+/* ──── BOTOES ──── */
+.lation-btn { cursor: pointer; border-radius: var(--radius-sm); padding: 8px 16px; font-size: 13px; font-weight: 600; transition: all 0.15s; display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 1px solid transparent; }
+.lation-btn.primary { background: var(--btn-green-bg); border-color: var(--accent); color: var(--btn-green-text); }
+.lation-btn.primary:hover { background: var(--btn-green-hover); border-color: var(--accent-bright); color: #fff; box-shadow: 0 0 20px rgba(16,185,129,0.32); }
+.lation-btn.ghost { background: var(--surface-elevated); border-color: var(--line-strong); color: var(--content); }
+.lation-btn.ghost:hover { background: var(--surface-hover); border-color: var(--accent); color: var(--accent-bright); }
+.lation-btn.danger { background: var(--btn-err-bg); border-color: var(--btn-err-border); color: var(--btn-err-text); }
+.lation-btn.danger:hover { background: #4a202b; border-color: var(--error); color: #fff; }
+.lation-btn.full-width { width: 100%; margin-top: 16px; padding: 12px; font-size: 14px; }
+
+/* ──── TABLET GERENTE ──── */
+#app { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.55); z-index: 100; }
+.tablet-container { width: 880px; max-height: 90vh; background: var(--surface); border-radius: 16px; border: 1px solid var(--line-strong); box-shadow: var(--panel-shadow), inset 3px 0 0 var(--accent); display: flex; flex-direction: column; overflow: hidden; }
+.tablet-header { background: var(--surface-band); padding: 16px 20px; display: flex; align-items: center; gap: 16px; border-bottom: 1px solid var(--line-strong); }
+.tablet-brand { flex: 1; }
+.tablet-title { font-size: 15px; font-weight: 700; color: var(--content-heading); display: block; }
+.tablet-sub { font-size: 11px; color: var(--accent); font-family: var(--font-mono); display: block; }
+.tablet-tabs { display: flex; gap: 4px; }
+.tab-btn { background: transparent; border: 1px solid var(--line); color: var(--content-secondary); padding: 7px 14px; border-radius: var(--radius-sm); font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+.tab-btn.active { background: var(--accent-dim); border-color: var(--accent); color: var(--accent-bright); }
+.tab-btn:hover:not(.active) { background: var(--surface-hover); color: var(--content); }
+.tablet-body { padding: 24px; overflow-y: auto; flex: 1; }
+.section-title { font-size: 16px; font-weight: 700; color: var(--content-heading); margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--line-strong); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label { font-size: 11px; font-weight: 600; color: var(--content-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
+.lation-input { background: var(--surface-deep); border: 1px solid var(--line-strong); border-radius: var(--radius-sm); color: var(--content-heading); padding: 10px 12px; font-size: 13px; outline: none; transition: border-color 0.15s; width: 100%; }
+.lation-input:focus { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.lation-input option { background: var(--surface-deep); }
+.toggle-label { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 13px; color: var(--content); margin-top: 4px; }
+.toggle-track { width: 36px; height: 20px; background: var(--surface-deep); border-radius: 10px; border: 1px solid var(--line-strong); position: relative; transition: all 0.2s; flex-shrink: 0; }
+.toggle-track::after { content: ''; position: absolute; width: 14px; height: 14px; background: var(--content-muted); border-radius: 50%; top: 2px; left: 2px; transition: all 0.2s; }
+input[type="checkbox"]:checked + .toggle-track { background: var(--accent-dim); border-color: var(--accent); }
+input[type="checkbox"]:checked + .toggle-track::after { left: 18px; background: var(--accent-bright); }
+input[type="checkbox"] { display: none; }
+.ingredients-section { background: var(--surface-deep); border: 1px dashed var(--line-strong); border-radius: var(--radius); padding: 16px; margin: 16px 0; }
+.ing-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.ing-header h3 { font-size: 13px; font-weight: 600; color: var(--content-heading); }
+.ingredient-row { display: flex; gap: 8px; margin-bottom: 8px; }
+.ingredient-row select, .ingredient-row input[type="number"] { flex: 1; padding: 8px 10px; background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--radius-sm); color: var(--content-heading); font-size: 12px; outline: none; }
+.ingredient-row input[type="number"] { flex: 0 0 70px; font-family: var(--font-mono); }
+.ingredient-row select:focus, .ingredient-row input:focus { border-color: var(--accent); }
+.remove-ing-btn { background: var(--btn-err-bg); border: 1px solid var(--btn-err-border); color: var(--btn-err-text); border-radius: var(--radius-sm); padding: 0 12px; cursor: pointer; font-size: 12px; transition: all 0.15s; }
+.remove-ing-btn:hover { background: #4a202b; color: #fff; }
+.recipes-grid { display: flex; flex-direction: column; gap: 10px; }
+.recipe-card { background: var(--surface-deep); border: 1px solid var(--line-strong); border-radius: var(--radius); padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; transition: all 0.15s; }
+.recipe-card:hover { border-color: var(--accent); box-shadow: inset 3px 0 0 var(--accent); }
+.recipe-info h4 { font-size: 14px; font-weight: 700; color: var(--content-heading); margin-bottom: 4px; }
+.recipe-info p { font-size: 11px; color: var(--content-secondary); margin-bottom: 2px; }
+.recipe-actions { display: flex; gap: 6px; }
+
+/* ════════════════════════════════════════════════════════════════
+   COZINHA 3D — OVERLAY TOTALMENTE TRANSPARENTE (LATION EMERALD)
+   ════════════════════════════════════════════════════════════════ */
+#cooking-world {
+    position: fixed; top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: transparent !important;
+    cursor: none !important;
+    z-index: 500; overflow: hidden;
+    pointer-events: none;
+}
+
+#world-labels {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%; pointer-events: none;
+}
+
+/* ── Labels de ingredientes no mundo 3D ── */
+.wl-ingredient {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background: transparent;
+    pointer-events: none;
+    display: flex; align-items: center; gap: 8px;
+    transition: all 0.15s ease;
+}
+
+.wl-ingredient .wi-tag {
+    background: rgba(12, 15, 20, 0.88);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-left: 3px solid var(--accent);
+    border-radius: 6px;
+    padding: 4px 10px;
+    display: flex; flex-direction: column;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.6);
+}
+.wl-ingredient.hovered .wi-tag {
+    border-color: var(--accent);
+    border-left: 3px solid var(--accent-bright);
+    box-shadow: 0 0 18px rgba(16, 185, 129, 0.4), 0 4px 14px rgba(0,0,0,0.7);
+    transform: scale(1.05);
+}
+.wl-ingredient .wi-label {
+    font-size: 11px; font-weight: 700; color: #ffffff;
+    font-family: var(--font-main);
+}
+.wl-ingredient .wi-count {
+    font-size: 10px; color: var(--accent-bright);
+    font-family: var(--font-mono); font-weight: 600;
+}
+
+/* ── Slots da grelha de metal ── */
+.wl-slot {
+    position: absolute; transform: translate(-50%, -50%);
+    width: 58px; height: 58px; border-radius: 50%;
+    border: 2px dashed rgba(255, 255, 255, 0.15);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    pointer-events: none; transition: all 0.15s ease;
+    font-size: 9px; font-weight: 800; letter-spacing: 0.6px;
+    color: rgba(255, 255, 255, 0.4); text-transform: uppercase; text-align: center;
+    line-height: 1.2; background: transparent;
+}
+.wl-slot-icon { font-size: 18px; line-height: 1; }
+
+/* Estado 3: Zona de Alvo (Target Zone) ao passar carne sobre o slot */
+.wl-slot.drop-target {
+    border: 2px solid #10b981;
+    background: rgba(16, 185, 129, 0.18);
+    box-shadow: 0 0 24px rgba(16, 185, 129, 0.6), inset 0 0 16px rgba(16, 185, 129, 0.25);
+    color: #6afe87; transform: translate(-50%, -50%) scale(1.12);
+    animation: targetPulse 0.8s ease infinite alternate;
+}
+@keyframes targetPulse {
+    0% { transform: translate(-50%, -50%) scale(1.06); box-shadow: 0 0 16px rgba(16, 185, 129, 0.4); }
+    100% { transform: translate(-50%, -50%) scale(1.16); box-shadow: 0 0 32px rgba(16, 185, 129, 0.7); }
+}
+
+.wl-slot.st-raw { border: 2px solid rgba(245, 158, 11, 0.4); color: rgba(245, 158, 11, 0.85); }
+.wl-slot.st-side2 { border: 2px solid rgba(245, 158, 11, 0.4); color: rgba(245, 158, 11, 0.85); }
+.wl-slot.st-needs_flip {
+    border: 2px solid #10b981; color: #10b981;
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+    animation: targetPulse 0.6s ease infinite alternate;
+}
+.wl-slot.st-cooked {
+    border: 2px solid #10b981; color: #6afe87;
+    box-shadow: 0 0 24px rgba(16, 185, 129, 0.6);
+}
+.wl-slot.st-burnt { border: 2px solid #ef4444; color: #ef4444; }
+
+/* ── Estado 1: Círculo Branco de Hover (Requisito Explícito do Usuário) ── */
+#hover-target-circle {
+    position: fixed; pointer-events: none; z-index: 9998;
+    width: 48px; height: 48px; border-radius: 50%;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 16px rgba(255, 255, 255, 0.7), inset 0 0 10px rgba(255, 255, 255, 0.35);
+    transform: translate(-50%, -50%);
+    animation: hoverRingPulse 1.1s ease infinite alternate;
+}
+@keyframes hoverRingPulse {
+    0% { transform: translate(-50%, -50%) scale(0.96); opacity: 0.75; }
+    100% { transform: translate(-50%, -50%) scale(1.12); opacity: 1.0; }
+}
+
+/* ── Tooltip Contextual Flutuante Colado ao Cursor / Ponta da Espátula ── */
+#cursor-tooltip {
+    position: fixed; pointer-events: none; z-index: 10000;
+    transform: translate(22px, 14px);
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(10, 12, 16, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px; padding: 6px 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.75);
+    transition: opacity 0.12s ease;
+    white-space: nowrap;
+}
+#cursor-tooltip .tooltip-icon { font-size: 18px; line-height: 1; }
+#cursor-tooltip .tooltip-content { display: flex; flex-direction: column; gap: 1px; }
+#cursor-tooltip .tooltip-title {
+    font-size: 11px; font-weight: 700; color: #ffffff;
+    font-family: var(--font-main);
+}
+#cursor-tooltip .tooltip-action {
+    font-size: 10px; font-weight: 600; color: var(--accent-bright);
+    font-family: var(--font-mono); text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ── Barra de Status Inferior ── */
+.cooking-status-bar {
+    position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 16px;
+    background: rgba(8, 10, 14, 0.75);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px; padding: 6px 18px;
+    font-size: 12px; color: rgba(255,255,255,0.7); pointer-events: none; white-space: nowrap;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+}
+#cooking-hint-text { color: #ffffff; font-weight: 600; }
+.hint-keys { display: flex; align-items: center; gap: 6px; }
+.cooking-status-bar kbd {
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 4px; padding: 2px 7px; font-size: 10px;
+    color: rgba(255,255,255,0.6); font-family: var(--font-mono);
+}
+
+/* ── Nano Cooking Rings (Temporizadores Circulares) ── */
+#cooking-rings-container {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    pointer-events: none; overflow: hidden; z-index: 999; background: transparent !important;
+}
+.nano-cooking-ring {
+    position: absolute; transform: translate(-50%, -50%);
+    width: 64px; height: 64px; display: flex; align-items: center; justify-content: center;
+    pointer-events: auto; cursor: pointer;
+    background: transparent !important; border-radius: 50% !important;
+}
+.nano-ring-wrapper { position: relative; width: 100%; height: 100%; }
+.nano-ring-svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.nano-ring-bg { fill: none; stroke: rgba(255,255,255,0.1); stroke-width: 4; }
+.nano-ring-progress {
+    fill: none; stroke: var(--accent); stroke-width: 4;
+    stroke-dasharray: 163; stroke-dashoffset: 163;
+    transition: stroke-dashoffset 0.3s ease; stroke-linecap: round;
+}
+.nano-ring-content {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.nano-ring-time {
+    font-size: 12px; font-weight: 800; font-family: var(--font-mono); color: #ffffff;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+}
+.nano-ring-badge {
+    font-size: 8px; font-weight: 800; text-transform: uppercase;
+    color: var(--accent-bright); font-family: var(--font-mono);
+}
+.nano-ring-badge.needs_flip { color: #10b981; }
+.nano-ring-badge.cooked { color: #6afe87; }
+.nano-ring-badge.burnt { color: #ef4444; }
+
+
+/* ════════════════════════════════════════════════════════════════
+   BANCADA DE MONTAGEM 3D — PAINEL DE CAMADAS (LATION EMERALD)
+   ════════════════════════════════════════════════════════════════ */
+#assembly-world {
+    position: fixed; top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: transparent !important;
+    pointer-events: none;
+    z-index: 550; overflow: hidden;
+}
+
+.assembly-panel {
+    position: absolute; top: 28px; right: 28px;
+    width: 280px;
+    background: rgba(10, 13, 18, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-left: 3px solid var(--accent);
+    border-radius: 10px;
+    padding: 16px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.75);
+    display: flex; flex-direction: column; gap: 12px;
+    pointer-events: auto;
+}
+
+.assembly-header {
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 10px;
+}
+.assembly-title {
+    font-size: 13px; font-weight: 800; color: #ffffff;
+    font-family: var(--font-main);
+}
+.assembly-count {
+    font-size: 11px; font-family: var(--font-mono);
+    color: var(--accent-bright); font-weight: 700;
+}
+
+.assembly-layers-list {
+    display: flex; flex-direction: column-reverse; gap: 6px;
+    max-height: 240px; overflow-y: auto; padding-right: 4px;
+}
+.assembly-empty {
+    font-size: 11px; color: rgba(255, 255, 255, 0.45);
+    text-align: center; padding: 20px 8px; font-family: var(--font-main);
+}
+.assembly-layer-item {
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 6px; padding: 6px 10px;
+    animation: layerSlideIn 0.2s ease;
+}
+@keyframes layerSlideIn {
+    0% { transform: translateY(8px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+.assembly-layer-item .al-icon { font-size: 16px; line-height: 1; }
+.assembly-layer-item .al-name {
+    font-size: 11px; font-weight: 700; color: #ffffff;
+    font-family: var(--font-main);
+}
+
+.assembly-tips {
+    display: flex; justify-content: space-between;
+    font-size: 10px; color: rgba(255, 255, 255, 0.45);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 8px; font-family: var(--font-mono);
+}
+.assembly-tips kbd {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 3px; padding: 1px 5px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   ESTAÇÃO DE FRITURA 3D — PAINEL E TIMER (LATION EMERALD)
+   ════════════════════════════════════════════════════════════════ */
+#fryer-world {
+    position: fixed; top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: transparent !important;
+    pointer-events: none;
+    z-index: 550; overflow: hidden;
+}
+
+.fryer-panel {
+    position: absolute; top: 28px; left: 28px;
+    width: 290px;
+    background: rgba(10, 13, 18, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-left: 3px solid var(--accent);
+    border-radius: 10px;
+    padding: 16px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.75);
+    display: flex; flex-direction: column; gap: 12px;
+    pointer-events: auto;
+}
+
+.fryer-header {
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 10px;
+}
+.fryer-title {
+    font-size: 13px; font-weight: 800; color: #ffffff;
+    font-family: var(--font-main);
+}
+.fryer-badge {
+    font-size: 10px; font-family: var(--font-mono); font-weight: 700;
+    text-transform: uppercase; color: var(--accent-bright);
+    background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.25);
+    padding: 2px 8px; border-radius: 4px;
+}
+
+.fryer-body {
+    display: flex; align-items: center; gap: 14px;
+}
+.fryer-ring-box {
+    position: relative; width: 64px; height: 64px; flex-shrink: 0;
+}
+.fryer-info {
+    display: flex; flex-direction: column; gap: 4px;
+}
+.fryer-status-title {
+    font-size: 12px; font-weight: 800; color: #ffffff;
+    font-family: var(--font-main);
+}
+.fryer-status-hint {
+    font-size: 11px; color: var(--accent-bright); font-weight: 600;
+    font-family: var(--font-main);
+}
+
+.fryer-tips {
+    display: flex; justify-content: space-between;
+    font-size: 10px; color: rgba(255, 255, 255, 0.45);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 8px; font-family: var(--font-mono);
+}
+.fryer-tips kbd {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 3px; padding: 1px 5px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* =====================================================
+   TÁBUA DE CORTE FÍSICA 3D (Lation Emerald Edition)
+   ===================================================== */
+#cutting-world {
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 50;
+}
+
+.cutting-panel {
+    position: absolute; top: 28px; left: 28px;
+    width: 320px;
+    background: rgba(10, 13, 18, 0.90);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-left: 3px solid var(--accent);
+    border-radius: 10px;
+    padding: 16px;
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.78);
+    display: flex; flex-direction: column; gap: 12px;
+    pointer-events: auto;
+}
+
+.cutting-header {
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 10px;
+}
+.cutting-title {
+    font-size: 13px; font-weight: 800; color: #ffffff;
+    font-family: var(--font-main);
+}
+.cutting-badge {
+    font-size: 11px; font-family: var(--font-mono); font-weight: 700;
+    text-transform: uppercase; color: var(--accent-bright);
+    background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.25);
+    padding: 2px 8px; border-radius: 4px;
+}
+
+.cutting-body {
+    display: flex; flex-direction: column; gap: 10px;
+}
+
+.cutting-progress-track {
+    width: 100%; height: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cutting-progress-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-bright) 100%);
+    border-radius: 4px;
+    transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+}
+
+.cutting-info {
+    display: flex; flex-direction: column; gap: 3px;
+}
+.cutting-target-title {
+    font-size: 13px; font-weight: 800; color: #ffffff;
+    font-family: var(--font-main);
+}
+.cutting-target-hint {
+    font-size: 11px; color: var(--accent-bright); font-weight: 600;
+    font-family: var(--font-main);
+}
+
+.cutting-tips {
+    display: flex; justify-content: space-between;
+    font-size: 10px; color: rgba(255, 255, 255, 0.45);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 8px; font-family: var(--font-mono);
+}
+.cutting-tips kbd {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 3px; padding: 1px 5px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* =====================================================
+   MÁQUINA DE BEBIDAS & REFRIGERANTE 3D (Lation Emerald)
+   ===================================================== */
+#drinks-world {
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 50;
+}
+
+.drinks-panel {
+    position: absolute; top: 28px; left: 28px;
+    width: 330px;
+    background: rgba(10, 13, 18, 0.90);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-left: 3px solid var(--accent);
+    border-radius: 10px;
+    padding: 16px;
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.78);
+    display: flex; flex-direction: column; gap: 12px;
+    pointer-events: auto;
+}
+
+.drinks-header {
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 10px;
+}
+.drinks-title {
+    font-size: 13px; font-weight: 800; color: #ffffff;
+    font-family: var(--font-main);
+}
+.drinks-badge {
+    font-size: 11px; font-family: var(--font-mono); font-weight: 700;
+    text-transform: uppercase; color: var(--accent-bright);
+    background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.25);
+    padding: 2px 8px; border-radius: 4px;
+}
+
+.drinks-body {
+    display: flex; flex-direction: column; gap: 10px;
+}
+
+.drinks-flavors-row {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+}
+.flavor-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 6px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 11px; font-weight: 600;
+    padding: 6px 4px;
+    cursor: pointer;
+    font-family: var(--font-main);
+    transition: all 0.2s ease;
+    text-align: center;
+}
+.flavor-btn:hover {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: rgba(16, 185, 129, 0.35);
+    color: #ffffff;
+}
+.flavor-btn.active {
+    background: var(--accent);
+    border-color: var(--accent-bright);
+    color: #0d1217;
+    font-weight: 800;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+}
+
+.drinks-progress-track {
+    width: 100%; height: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.drinks-progress-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, #10b981 0%, #34d399 100%);
+    border-radius: 4px;
+    transition: width 0.15s ease;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+}
+
+.drinks-info {
+    display: flex; flex-direction: column; gap: 3px;
+}
+.drinks-target-title {
+    font-size: 13px; font-weight: 800; color: #ffffff;
+    font-family: var(--font-main);
+}
+.drinks-target-hint {
+    font-size: 11px; color: var(--accent-bright); font-weight: 600;
+    font-family: var(--font-main);
+}
+
+.drinks-tips {
+    display: flex; justify-content: space-between;
+    font-size: 10px; color: rgba(255, 255, 255, 0.45);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 8px; font-family: var(--font-mono);
+}
+.drinks-tips kbd {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 3px; padding: 1px 5px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+

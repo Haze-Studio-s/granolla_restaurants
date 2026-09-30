@@ -48,9 +48,21 @@ onduty
 
 ---
 
-## 2. 🎒 Lista Completa de Invocação de Itens (`/giveitem`)
+## 2. 🎒 Kit Admin Automático & Invocação de Itens (`/kitculinaria`)
 
-Copie e cole os blocos no console **F8** para adicionar ao seu inventário todos os insumos, consumíveis e estruturas:
+Você pode gerar automaticamente os itens no seu inventário com um único comando no **Chat** ou no **F8**:
+
+### Comandos Rápidos de Kit:
+- `/kitculinaria` ou `/givekitchenkit` : Adiciona instantaneamente todos os **13 Insumos Brutos de Culinária** (faca, batata, tomate, queijo, cebola, carnes, etc. ~23kg).
+- `/kitculinaria all` ou `/kitculinaria tudo` : Adiciona os **33 Itens** de uma só vez (brutos, processados, prontos e estruturas).
+- `/kitculinaria processados` : Adiciona apenas insumos fatiados/cortados (batata cortada, tomate, queijo, cebola fatiada).
+- `/kitculinaria prontos` : Adiciona os 9 produtos finais prontos (lanches, refrigerantes e água).
+- `/kitculinaria props` : Adiciona as 7 estruturas móveis portáteis (churrasqueira, fritadeira, food cart, mesa, cadeiras, tenda, soda machine).
+- `/kitculinaria [id] [categoria]` : Envia o kit para o jogador com o ID especificado (ex: `/kitculinaria 1 all` ou no console do servidor `kitculinaria 1 brutos`).
+
+---
+
+### Invocação Manual Individual (F8 / RCON):
 
 ### Insumos Brutos de Culinária:
 ```bash
@@ -105,8 +117,10 @@ giveitem 1 granolla_soda_machine 1
 
 ## 3. ⌨️ Comandos de Teste & Atalhos F8
 
-| Comando F8 | Módulo Testado | Descrição |
+| Comando F8 / Chat | Módulo Testado | Descrição |
 | :--- | :--- | :--- |
+| `/kitculinaria [cat]` | Admin / Itens | Entrega kits culinários prontos (`brutos`, `processados`, `prontos`, `props`, `all`) |
+| `/givekitchenkit` | Admin / Itens | Alias direto de `/kitculinaria` |
 | `/testcut` | Módulo 5 | Abre a câmera da Tábua de Corte com Faca de Chef 3D |
 | `/testfryer` | Módulo 6 | Abre a Fritadeira em 1ª pessoa com Cesto Móvel e Pá |
 | `/testkitchen` | Módulo 7 | Abre a Chapa com Espátula Física controlada pelo Mouse |

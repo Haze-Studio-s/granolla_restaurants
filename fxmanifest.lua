@@ -40,6 +40,7 @@ server_scripts {
     '@oxmysql/lib/MySQL.lua',
     'server/database.lua',
     'server/main.lua',
+    'server/admin.lua',
     'server/recipes.lua',
     'server/cooking.lua',
     'server/economy.lua',

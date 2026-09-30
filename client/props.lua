@@ -310,10 +310,11 @@ local SpatulaConfig = {
         zOffset    = 0.015, -- Altura suave sobre a chapa
         zClick     = 0.004,
         rgtOffset  = 0.02,
-        bladeY     = -0.19, -- Posição calibrada no centro da lâmina de metal da espátula
+        bladeX     = 0.0,
+        bladeY     = -0.27, -- Posição centralizada no meio da lâmina da espátula
         bladeZ     = 0.022
     },
-    native = { -- prop_fish_slice_01 (fallback)
+    native = { -- prop_fish_slice_01 (fallback com 4 ranhuras)
         caboLength = 0.28,
         pitch      = 8.0,   -- Suave para o cabo subir ao invés de fincar na chapa
         pitchClick = 1.0,
@@ -322,7 +323,8 @@ local SpatulaConfig = {
         zOffset    = 0.015,
         zClick     = 0.005,
         rgtOffset  = 0.02,
-        bladeY     = -0.22,
+        bladeX     = 0.0,
+        bladeY     = -0.28, -- Posição perfeita cobrindo as 4 ranhuras da espátula
         bladeZ     = 0.022
     }
 }
@@ -924,9 +926,10 @@ function StartCookingCamera(propCoords, stationId, stationRot)
                         if heldSpatulaProp and DoesEntityExist(heldSpatulaProp) then
                             -- A carne repousa perfeitamente sobre a lâmina de metal da espátula móvel
                             local cfg = isMxcSpatula and SpatulaConfig.mxc or SpatulaConfig.native
-                            local bladeY = cfg.bladeY or -0.19
+                            local bladeX = cfg.bladeX or 0.0
+                            local bladeY = cfg.bladeY or -0.28
                             local bladeZ = cfg.bladeZ or 0.022
-                            AttachEntityToEntity(foodProp, heldSpatulaProp, 0, 0.0, bladeY, bladeZ, 0.0, 0.0, 0.0, false, false, false, false, 2, true)
+                            AttachEntityToEntity(foodProp, heldSpatulaProp, 0, bladeX, bladeY, bladeZ, 0.0, 0.0, 0.0, false, false, false, false, 2, true)
                         else
                             local boneR = GetPedBoneIndex(ped, 28422)
                             if boneR == -1 then boneR = GetPedBoneIndex(ped, 60309) end

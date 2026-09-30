@@ -309,7 +309,9 @@ local SpatulaConfig = {
         yawOffset  = 180.0, -- Lâmina em -Y local vira para a frente da chapa (+fwd)
         zOffset    = 0.015, -- Altura suave sobre a chapa
         zClick     = 0.004,
-        rgtOffset  = 0.02
+        rgtOffset  = 0.02,
+        bladeY     = -0.19, -- Posição calibrada no centro da lâmina de metal da espátula
+        bladeZ     = 0.022
     },
     native = { -- prop_fish_slice_01 (fallback)
         caboLength = 0.28,
@@ -319,7 +321,9 @@ local SpatulaConfig = {
         yawOffset  = 180.0, -- Alinha a lâmina apontando para a comida na chapa
         zOffset    = 0.015,
         zClick     = 0.005,
-        rgtOffset  = 0.02
+        rgtOffset  = 0.02,
+        bladeY     = -0.22,
+        bladeZ     = 0.022
     }
 }
 
@@ -919,8 +923,9 @@ function StartCookingCamera(propCoords, stationId, stationRot)
 
                         if heldSpatulaProp and DoesEntityExist(heldSpatulaProp) then
                             -- A carne repousa perfeitamente sobre a lâmina de metal da espátula móvel
-                            local bladeY = isMxcSpatula and 0.16 or 0.18
-                            local bladeZ = isMxcSpatula and 0.02 or 0.015
+                            local cfg = isMxcSpatula and SpatulaConfig.mxc or SpatulaConfig.native
+                            local bladeY = cfg.bladeY or -0.19
+                            local bladeZ = cfg.bladeZ or 0.022
                             AttachEntityToEntity(foodProp, heldSpatulaProp, 0, 0.0, bladeY, bladeZ, 0.0, 0.0, 0.0, false, false, false, false, 2, true)
                         else
                             local boneR = GetPedBoneIndex(ped, 28422)
@@ -1278,6 +1283,12 @@ RegisterCommand('camtune', function(source, args)
         GrillCamConfig.fwdLookAt = val
     elseif param == 'ped' then
         GrillCamConfig.pedDist = val
+    elseif param == 'blade' or param == 'bladey' then
+        local cfg = isMxcSpatula and SpatulaConfig.mxc or SpatulaConfig.native
+        cfg.bladeY = val
+        if grabbedProp and DoesEntityExist(grabbedProp) and heldSpatulaProp and DoesEntityExist(heldSpatulaProp) then
+            AttachEntityToEntity(grabbedProp, heldSpatulaProp, 0, 0.0, cfg.bladeY, cfg.bladeZ or 0.022, 0.0, 0.0, 0.0, false, false, false, false, 2, true)
+        end
     elseif param == 'rot' or param == 'heading' or param == 'yaw' then
         currentGrillHeading = val
         if isCookingCamActive and grillWorldPos then
